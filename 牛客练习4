@@ -1,0 +1,35 @@
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int main()
+{
+	int l1,l2,n;
+	double x,y,mint; //double默认保留6位小数  
+	cin >> l1 >> l2;
+	cin >> n;
+	
+	while(n--)
+	{
+		cin >> x >> y;
+		double c = sqrt(x*x+y*y);
+		//能构成三角形 
+		if( l1+l2 >=c && abs(l1-l2)<=c )
+		{
+			mint = 0;
+			printf("%.8lf\n",mint);
+		}
+		
+		//不能构成三角形（直线/折叠） 
+		else
+		{
+			mint = min(fabs(c-abs(l1-l2)),fabs(abs(c-l1-l2)));  //采用浮点数绝对值函数 ，包括了四种情况 
+			printf("%.8lf\n",mint);
+		}
+	
+	
+	} 
+	
+	
+	return 0;
+}
