@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+const int maxn = 105;
+int a[maxn][maxn];
+int b[maxn][maxn];
+int main()
+{
+	int res = 0;
+	int m,n;
+	scanf("%d%d",&m,&n);
+	for(int i=0;i<m;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			scanf("%d",&a[i][j]);
+		}
+			
+	}
+	
+	int m1,n1;
+	scanf("%d%d",&m1,&n1);
+	for(int i=0;i<m1;i++)
+	{
+		for(int j=0;j<n1;j++)
+		{
+			scanf("%d",&b[i][j]);
+		}
+	}
+
+	if(n == m1)
+	{	
+		printf("%d %d\n",m,n1);
+		for(int i=0;i<m;i++)
+		{
+			int flag =0;
+			for(int j=0;j<n1;j++)
+			{	
+				res= 0;
+				for(int k=0;k<n;k++)
+				{
+					res = res + a[i][k]*b[k][j];	
+				}
+					if(flag++ != 0)
+  						cout << " ";
+				printf("%d",res);
+  			
+			}
+
+			printf("\n");	
+		}
+	}
+	else
+		cout << "Error: " << n << " " << "!= " << m1 << endl;
+	
+	
+    return 0;
+}
