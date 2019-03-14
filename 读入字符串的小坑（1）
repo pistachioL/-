@@ -1,0 +1,86 @@
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <stdio.h>
+using namespace std;
+int main()
+{
+    char a[1100];
+    string b;
+    int a1=0,b1=0,flag=0,flag1=0;      /*123 + 456 = 579 、-100 blabla bla...33 把输入中出现的第1个空格认为是A和B的分隔。
+                                              保证至少存在一个空格，并且B不是一个空字符串*/
+    scanf("%s",a);   //保证第一个空格是AB分隔 
+    char c = getchar();
+    getline(cin, b);
+    //scanf("%s",b);  scanf不读空格，即遇到空格认为输入结束
+    int len1 = strlen(a);
+    int len2 = b.size();
+
+    for(int i=0;i<len1;i++)
+    {     if(a[i]!='-')
+        {
+             if(a[i]<='9' && a[i]>='0')
+            {
+
+                 int n = a[i]-48;
+                 a1 = a1*10 + n;
+                 if(a1<=1000 && a1>=1)
+                    flag = 1;
+                 else
+                    flag = 0;
+
+            }
+            else
+            {
+                flag = 0;
+                break;
+            }
+        }
+        else
+        {
+            flag = 0;
+            break;
+        }
+
+    }
+
+
+    for( int i=0;i<len2;i++)
+    {   if(b[i]!='-')
+        {
+             if(b[i]<='9' && b[i]>='0')
+            {
+                int n = b[i]-48;
+                b1 = b1*10 + n;
+                if(b1<=1000 && b1>=1)
+                    flag1 = 1;
+
+            }
+            else
+            {
+                flag1 = 0;
+                break;
+            }
+        }
+        else
+        {
+            flag1 = 0;
+            break;
+        }
+
+    }
+
+
+
+
+    if(flag == 1 && flag1 == 1)
+        cout << a1 << " + " << b1 << " = " << a1 + b1 << endl;
+    else if(flag ==1 && flag1 == 0)
+        cout << a1 << " + " << "?" << " = " << "?" << endl;
+    else if(flag == 0 && flag1 == 1)
+        cout << "?" << " + " << b1 << " = " << "?" << endl;
+    else
+        cout << "?" << " + " << "?" << " = " << "?" << endl;
+
+    return 0;
+}
