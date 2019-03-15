@@ -1,10 +1,14 @@
-     char a[100];
-    fgets(a,100,stdin);  //能识别换行，遇到'\n'就结束输入。能读入空格、回车、tab。
+  
+  1)
+    char a[100];
+   ## fgets(a,100,stdin);  //能识别换行，遇到'\n'就结束输入。能读入空格、回车、tab。
     cout << a;
     
     
-    
+   2)
    cin >>    scanf()两种输入方式都会带换行符，需要用getchar()把'\n'读入，否则会造成读入错误
   
     
-   
+   3)
+     string s;
+     getline(cin,s);  //getline()也是能读入空格，遇到换行则结束读入
