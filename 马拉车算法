@@ -1,0 +1,50 @@
+#include <iostream>
+#include <stdio.h>
+#include <cstring>
+using namespace std;
+
+int manacher(char str[])
+{
+    int id=0,mx=0,p[3000],maxlen=0;
+    for(int i=0;i<strlen(str);i++)
+    {
+        if(mx>i)
+            p[i] = min(p[2*id-i],mx-i);  //P[i]是回文串以i为中点的半径
+        else
+            p[i] = 1;    //mx<=i的情况，半径长度为它自身，再与mx后一个个匹配,匹配完后要更新id和p[i]
+        while(str[i+p[i]]== str[i-p[i]])  //abdba  从某一个点向左右扩展
+            p[i]++;  //半径自增
+        if(i+p[i]<mx)  //半径大于回文串的边界，匹配完后要更新id和p[i]
+        {
+            mx = i+p[i];
+            id = i;
+        }
+        maxlen = max(p[i]-1,maxlen);
+    }
+    cout << maxlen;
+}
+
+int main()
+{
+    char s[1500];
+    char str[2000];
+    fgets(s,1500,stdin);
+    str[0]='$';
+    str[1]='#';
+    int i,j=2;
+    for(int i=0;i<strlen(s);i++)
+    {
+        str[j++] = s[i];
+        str[j++] = '#';
+    }
+    str[j]='\0';   //字符串开头有$ 结尾有'\0'
+
+    manacher(str);
+
+
+    return 0;
+}
+
+
+
+https://www.cnblogs.com/grandyang/p/4475985.html
