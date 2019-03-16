@@ -1,0 +1,32 @@
+#include <iostream>
+#include <stdio.h>
+#include <cstring>
+using namespace std;
+const int maxn = 1e6;
+int a[maxn];
+int b[maxn];
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    int n,i,j;
+    while(scanf("%d",&n)==1)   //限制输入为数字,若是其它字符则输入结束
+    {
+         memset(b,0,sizeof(b)); //内存空间的初始化：初始化比较大的数组或结构体，头文件是<cstring>
+        for(i=0;i<n;i++)
+        {
+            scanf("%d",&a[i]);
+            b[a[i]]++;
+        }
+
+        for(j=0;j<n;j++)
+        {
+            if(b[j]==2)
+            {
+                printf("%d\n",j);
+                break;
+            }
+        }
+    }
+    return 0;
+}
