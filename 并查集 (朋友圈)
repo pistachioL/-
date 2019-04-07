@@ -1,0 +1,65 @@
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+using namespace std;
+int n,m;
+const int Max = 30005;
+int par[Max],People[Max];
+int find(int x)
+{
+	if(par[x]==x)  //自己便是根  par[y] = x，x是y的根 
+		return x;
+	else
+		return par[x] = find(par[x]);  //路径压缩处理，通过递归使路径上经过的节点直接找到根 
+} 
+
+void join(int x,int y)
+{
+	x = find(x);
+	y = find(y);  //分别找x y的根
+	if(x!=y) //根不相同
+		par[y] = x; //一棵树上的根y变为另一棵树x的孩子	
+} 
+int a,b,num;
+int main()
+{
+	scanf("%d %d",&n,&m);
+	for(int i=1;i<=n;i++)  //为啥要初始化？？让每个节点都是根 
+		par[i] = i;
+		
+		 
+	while(m--)
+	{
+	 	scanf("%d",&num);
+		if(num>0)
+			scanf("%d",&a); //控制num个数目的第一个为根a 其余输入都是b 
+		for(int i=1;i<num;i++)
+		{
+			scanf("%d",&b);
+			join(a,b);  //把a b连起来 par[b] = a,a作为根，和后续输入的都有关联 
+		}
+	}
+	
+	for(int i=0;i<=n;i++)
+	{
+		People[i] = 0;  //存放是根的人有多少孩子，即一个人 他的朋友圈 
+	}
+	int k;
+	for(int i=1;i<=n;i++)
+	{
+		k = find(i);  //k来记录实根的人 k=1 
+		//----直到k=5 
+		People[k]++; //根的孩子有多少个 即一个人与之关联的朋友多少个 
+		
+	}
+	
+	int maxn = 0;
+	for(int i=1;i<=n;i++)
+	{
+		maxn = max(maxn,People[i]);
+	}
+	
+	printf("%d\n",maxn);
+	return 0;
+	
+}
