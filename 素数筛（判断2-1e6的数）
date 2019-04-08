@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+using namespace std;
+const int maxn = 10000005;
+bool prime[maxn];
+int isPrime(int n)
+{
+	int k = 0;
+	memset(prime,true,sizeof(prime));
+	prime[0] = prime[1] = false;
+	for(int i=2;i<=n;i++)
+	{
+		if(prime[i])
+		{
+			for(int j=i*2;j<=n;j+=i)
+			{
+				prime[j] = false; //筛去 
+			}
+			prime[i] = k++; 
+		}
+	}
+	cout << k << endl;
+}
+int main()
+{
+	int n;
+	while(scanf("%d",&n)!=EOF)
+	{
+		isPrime(n);
+	}
+	return 0;
+}
