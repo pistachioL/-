@@ -11,9 +11,8 @@ int main()
 			for(i=0;i<6;i++)
 			{
 				if(n<a[i])
-				{
-					break;
-				}
+			        	break;
+				
 			
 			}
 			printf("Case #%d: %d\n",++k,n-i);
