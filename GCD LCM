@@ -1,0 +1,30 @@
+#include <iostream>
+#include <algorithm>
+typedef long long ll;
+using namespace std;
+ll gcd(ll a,ll b)  //最大公约数 
+{
+	while(b)
+	{
+		a%=b;
+		swap(a,b);
+	}
+	return a;
+}
+ll lcm(ll a,ll b)  //最小公倍数 
+{
+	return a*b/gcd(a,b);
+}
+int main()
+{
+	ll t,a,b,c,d;
+	cin >> t;
+	while(t--)
+	{
+		cin >> a >> b;
+		c = gcd(a,b);
+		d = lcm(a,b);
+		cout << c << " " <<  d <<endl;
+	}
+	return 0;
+}
