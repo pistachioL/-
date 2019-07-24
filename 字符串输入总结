@@ -12,3 +12,20 @@
    3)
      string s;
      getline(cin,s);  //getline()也是能读入空格，遇到换行则结束读入
+     
+     
+   4）
+      c++的string可以像数组那样取到每个下表的元素：
+      	string s1,s2;
+	      cin >> s1 >> s2;
+      	int len1 = s1.size();
+	      int len2 = s2.size(); 
+        for(int i=0;i<len1;i++)
+        {
+          sum1 = s1[i]-64;
+          
+        }
+        for(int i=0;i<len2;i++)
+        {
+          sum2 = s2[i]-64;
+        }
