@@ -1,0 +1,149 @@
+1.　给定整数 m，在数列 a_1, a_2, ..., a_n中，如果两个数的和为 m 的倍数，则称为一个倍数对。
+　　给定一个数列，请问数列中总共有多少个倍数对。
+输入格式
+　　输入的第一行包含两个整数 n, m，分别表示数列中的元素个数和给定的整数 m。
+　　第二行包含 n 个整数 a_1, a_2, ..., a_n，相邻的整数间用空格分隔，表示给定的数列。
+输出格式
+　　输出一行包含一个整数，表示答案。
+
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+typedef long long ll;
+int main()
+{
+    int n,m,arr[10005],cnt=0;
+    cin >> n >> m;
+    for(int i=0;i<n;i++)
+    {
+        cin >> arr[i];
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if((arr[i]+arr[j]) % m == 0)
+            {
+                cnt++;
+            }
+        }
+    }
+
+    cout <<cnt <<endl;
+
+
+    return 0;
+}
+
+
+2.一般情况下，如果一个单词在段首，则第一个字母大写，后面的字母小写。
+　　给定一个单词，单词中可能包含大小写字母，请按第一个字母大写，后面字母小写的方式输出。
+输入格式
+　　输入一行，包含一个单词，单词中只包含大写或小写英文字母。
+输出格式
+　　输出单词在段首时的形式，第一个字母大写，其他字母小写
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+typedef long long ll;
+int main()
+{
+    string s;
+    cin >> s;
+    int len = s.size();
+    for(int i=1;i<len;i++)
+    {
+        if(s[0]>=97 && s[0]<=122)
+        {
+            s[0] = s[0]-32;
+        }
+        if(s[i]>=65 && s[i]<=90)
+        {
+            s[i] = s[i]+32;
+        }
+    }
+
+    cout <<s;
+
+    return 0;
+}
+
+3.
+  小明要组织一台晚会，总共准备了 n 个节目。然后晚会的时间有限，他只能最终选择其中的 m 个节目。
+  这 n 个节目是按照小明设想的顺序给定的，顺序不能改变。
+　小明发现，观众对于晚上的喜欢程度与前几个节目的好看程度有非常大的关系，他希望选出的第一个节目尽可能好看，在此前提下希望第二个节目尽可能好看，依次类推。
+　小明给每个节目定义了一个好看值，请你帮助小明选择出 m 个节目，满足他的要求。
+输入格式
+　　输入的第一行包含两个整数 n, m ，表示节目的数量和要选择的数量。
+　　第二行包含 n 个整数，依次为每个节目的好看值。
+输出格式
+　　输出一行包含 m 个整数，为选出的节目的好看值。
+
+
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <stack>
+using namespace std;
+typedef long long ll;
+int main()
+{
+    stack <int>st,st1;
+    int n,m,arr[100005],good[100],cnt;
+    cin >> n >> m;
+    for(int i=0;i<n;i++)
+    {
+        cin >> arr[i];
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        cnt = 0;
+        for(int j=0;j<n;j++)
+        {
+            if(i != j)
+            {
+                if(arr[i]>arr[j])
+                {
+                    cnt++;
+                }
+            }
+            else
+                continue;
+
+        }
+
+        if((n-cnt)<= m)
+        {
+            st.push(arr[i]);
+        }
+
+    }
+
+    int len = st.size();
+     for(int i=0;i<len;i++)
+     {
+         st1.push(st.top());
+         st.pop();
+     }
+
+     while(!st1.empty())
+     {
+         cout << st1.top() << " ";
+         st1.pop();
+     }
+     cout << endl;
+
+
+    return 0;
+}
+
+
+
+
+
