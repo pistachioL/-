@@ -144,6 +144,59 @@ int main()
 }
 
 
+4.
+给定正整数 n，请问在整数 1 至 n 中，数字中没有数位相同的数有多少个？
+　　例如，当 n=30 时，除开 11 和 22 以外，其他的数都没有数位相同，因此答案为 28。
+输入格式
+　　输入的第一行包含一个整数 n。
+输出格式
+　　输出一行包含一个整数，表示答案。
+样例输入
+30
+样例输出
+28
+评测用例规模与约定
+　　对于 40% 的评测用例，1 <= n <= 1000。
+　　对于 80% 的评测用例，1 <= n <= 100000。
+　　对于所有评测用例，1 <= n <= 1000000
+
+代码参考：
+#include <string>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+void i2s(long long x, string &basic_string) {
+    stringstream ss;
+    ss << x;
+    ss >> basic_string;
+}
+
+int main () {
+    int num, cnt = 0, flag = 0;
+    string s;
+    cin >> num;
+    for (int i = 0; i <= num; ++i) {
+        i2s(i, s);
+        flag = 0;
+        for (int j = 0; j < s.length(); ++j) {
+            for (int k = 1; k < s.length(); ++k)
+                if (s[j] == s[k]) {
+                    ++cnt;
+                    flag = 1;
+                    break;
+                }
+            if (flag = 1)
+                break;
+        }
+    }
+    cout << num - cnt;
+    return 0;
+}
+
+
+
 
 
 
