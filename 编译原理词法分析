@@ -27,8 +27,9 @@ int isNumber(char c)
 int main()
 {
     string s;
-    cin >> s;
-    int len = s.size();
+    int cnt = 0; //输入表达式的数量
+    int countError = 0; //错误个数
+    int k = 0;
     queue<char>num;
     map<char,int> token;
     map<char,int>::iterator iter;
@@ -38,91 +39,131 @@ int main()
     token.insert(pair<char,int>('/',4));
     token.insert(pair<char,int>('(',6));
     token.insert(pair<char,int>(')',7));
+    char wrong[100];
+    map<int,char>:: iterator wi;
 
     string temp;
     int i;
-     for(i=0;i<len;i++)
+    while(cin >> s)
     {
-        if(s[i] == '0' && s[i+1] == '.')  //开头是0的浮点数 0.5
+        ++cnt;
+        int len = s.size();
+        for(i=0;i<len;i++)
         {
-            temp = "";
-            num.push(s[i]);
-            num.push(s[i+1]);
-            while(isdigit(s[i+2]))
+            //以0开头的浮点数 0.00000~0.99999
+            if(s[i] == '0' && s[i+1] == '.')
             {
-                num.push(s[i+2]);
-                i++;
-            }
-            while(!num.empty())
-            {
-                temp = temp + num.front();
-                num.pop();
-            }
-            cout << "(8," << temp << "," << temp << ",double)" << endl;
-            i++;
-            continue;
-        }
-        //整数0
-        else if(s[i] == '0' && s[i+1] != '.')
-        {
-             cout << "(5," << "0" << "," << "0" << ",int)" << endl;
-             continue;
-            // continue;
-        }
-         //1~9开头的浮点数 1.00000~9.999999
-        else if(isNumber(s[i]) && s[i+1] == '.')
-        {
-            temp = "";
-            num.push(s[i]);
-            num.push(s[i+1]);
-            while(isdigit(s[i+2]))
-            {
-                num.push(s[i+2]);
-                i++;
-            }
-            while(!num.empty())
-            {
-               // cout << num.front() <<endl;
-                temp = temp + num.front();
-                num.pop();
-               // cout << temp <<endl;
-            }
-            i++;
-            cout << "(8," << temp << "," << temp << ",double)" << endl;
-            continue;
-        }
-        //整数1-9
-        else if(isNumber(s[i]) && s[i+1] != '.')
-        {
-            temp = "";
-            while(isdigit(s[i]))
-            {
+                temp = "";
                 num.push(s[i]);
-                ++i;
+                num.push(s[i+1]);
+                while(isdigit(s[i+2]))
+                {
+                    num.push(s[i+2]);
+                    i++;
+                }
+                while(!num.empty())
+                {
+                    temp = temp + num.front();
+                    num.pop();
+                }
+                cout << "(8," << temp << "," << temp << ",double)" << endl;
+                i++;
+                continue;
             }
-            while(!num.empty())
+            //整数0
+            else if(s[i] == '0' && s[i+1] != '.')
             {
-                temp = temp + num.front();
-                num.pop();
+                 cout << "(5," << "0" << "," << "0" << ",int)" << endl;
+                 continue;
+                // continue;
+            }
+             //1~9开头的浮点数 1.00000~9.999999
+            else if(isNumber(s[i]) && s[i+1] == '.')
+            {
+                temp = "";
+                num.push(s[i]);
+                num.push(s[i+1]);
+                while(isdigit(s[i+2]))
+                {
+                    num.push(s[i+2]);
+                    i++;
+                }
+                while(!num.empty())
+                {
+                   // cout << num.front() <<endl;
+                    temp = temp + num.front();
+                    num.pop();
+                   // cout << temp <<endl;
+                }
+                i++;
+                cout << "(8," << temp << "," << temp << ",double)" << endl;
+                continue;
+            }
+            //整数1-9
+            else if(isNumber(s[i]) && s[i+1] != '.')
+            {
+                temp = "";
+                while(isdigit(s[i]))
+                {
+                    num.push(s[i]);
+                    ++i;
+                }
+                while(!num.empty())
+                {
+                    temp = temp + num.front();
+                    num.pop();
+                }
+
+                cout<< "(5," << temp << "," << temp << ",int)" << endl;
+                //continue;
             }
 
-            cout<< "(5," << temp << "," << temp << ",int)" << endl;
-            //continue;
+             //是操作符
+            if(isOperation(s[i]))
+            {
+                for(iter = token.begin(); iter != token.end(); iter++)
+                {
+                    if(isEqual(iter->first,s[i]))
+                       cout << "(" << iter->second << "," << s[i] << "," << "NULL,NULL" << ")" << endl;
+                }
+                continue;
+            }
+
+            if(s[i] == '[' || s[i] == ']')
+            {
+                countError++;
+                //wrong.insert(pair<char,int>(cnt,s[i])); //第几行表达式,哪个字符错了
+                wrong[k++] = s[i];
+
+
+            }
         }
 
-         //是操作符
-        if(isOperation(s[i]))
-        {
-            for(iter = token.begin(); iter != token.end(); iter++)
-            {
-                if(isEqual(iter->first,s[i]))
-                   cout << "(" << iter->second << "," << s[i] << "," << "NULL,NULL" << ")" << endl;
-            }
-            continue;
-        }
+        //输出错误
 
-    }
+            if(countError > 0)
+            {
+                int temp = 1;
+                cout << "Error" << endl;
+                for(int j = 0;j < len;j++)
+                {
+                    for(int t = 0;t < k;t++)
+                    {
+                        if(s[j] == wrong[t])
+                        {
+                            cout << "Error"  << temp++ << ":第" << cnt << "行" << s[j-1] << "后存在非法字符"  << s[j]  << endl;
+                        }
+                    }
+                }
+
+
+            }
+
+        }  //while(cin >> s) 结束
 
     return 0;
 }
+
+
+
 
