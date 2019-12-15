@@ -27,9 +27,6 @@ int isNumber(char c)
 int main()
 {
     string s;
-    int cnt = 0; //输入表达式的数量
-    int countError = 0; //错误个数
-    int k = 0;
     queue<char>num;
     map<char,int> token;
     map<char,int>::iterator iter;
@@ -41,11 +38,13 @@ int main()
     token.insert(pair<char,int>(')',7));
     char wrong[100];
     map<int,char>:: iterator wi;
-
     string temp;
     int i;
     while(cin >> s)
     {
+        int cnt = 0; //输入表达式的数量
+        int countError = 0; //错误个数
+        int k = 0;
         ++cnt;
         int len = s.size();
         for(i=0;i<len;i++)
@@ -75,7 +74,6 @@ int main()
             {
                  cout << "(5," << "0" << "," << "0" << ",int)" << endl;
                  continue;
-                // continue;
             }
              //1~9开头的浮点数 1.00000~9.999999
             else if(isNumber(s[i]) && s[i+1] == '.')
@@ -90,10 +88,8 @@ int main()
                 }
                 while(!num.empty())
                 {
-                   // cout << num.front() <<endl;
                     temp = temp + num.front();
                     num.pop();
-                   // cout << temp <<endl;
                 }
                 i++;
                 cout << "(8," << temp << "," << temp << ",double)" << endl;
@@ -128,19 +124,14 @@ int main()
                 }
                 continue;
             }
-
             if(s[i] == '[' || s[i] == ']')
             {
                 countError++;
-                //wrong.insert(pair<char,int>(cnt,s[i])); //第几行表达式,哪个字符错了
                 wrong[k++] = s[i];
-
-
             }
-        }
+        }  //遍历s结束
 
         //输出错误
-
             if(countError > 0)
             {
                 int temp = 1;
@@ -155,8 +146,6 @@ int main()
                         }
                     }
                 }
-
-
             }
 
         }  //while(cin >> s) 结束
