@@ -1,0 +1,53 @@
+/*
+4 3
+98 40 60
+70 30 80
+90 80 60
+60 80 40
+*/
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+int main(){
+    int n, m;
+    cin >> n >> m;
+    int arr[505][505];
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cin >> arr[i][j];
+        }
+    }
+    int student[505];
+    memset(student, 0, sizeof(student));
+    int idx;
+    for(int i = 0; i < m; i++){
+        int maxn = 0;
+        for(int j = 0; j < n; j++){
+            if(arr[j][i] >= maxn){
+                maxn = arr[j][i];
+                idx = j;
+            }
+        }
+        for(int j = 0; j < n; j++){
+            if(arr[j][i] >= maxn){
+                maxn = arr[j][i];
+                idx = j;
+            }
+             student[idx]++;
+        }
+    }
+
+    int cnt = 0;
+    for(int i = 0; i < n; i++){
+        if(student[i]>0){
+            //cout << student[i] << " ";
+            cnt++;
+        }
+
+    }
+  //  cout << endl;
+    cout << cnt <<endl;
+
+}
